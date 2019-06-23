@@ -27,7 +27,6 @@ if [ ! -d "$DIRECTORY" ]; then
 
 	echo "nohup java -Xmx4G -Dfile.encoding=utf-8 -jar dbpedia-spotlight-0.7.1.jar de http://localhost:4449/rest  >  $0DE.log 2>&1 </dev/null & ">> runDE.sh
 	chmod +x runDE.sh 
-	
 
 	touch runEN.sh 
 	echo "nohup java -Xmx8G -Dfile.encoding=utf-8 -jar dbpedia-spotlight-0.7.1.jar en_2+2 http://localhost:4448/rest  >  $0EN.log 2>&1 </dev/null & ">> runEN.sh

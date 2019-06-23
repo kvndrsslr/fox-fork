@@ -4,7 +4,7 @@
 cd /usr/bin/FOX/spotlight
 
 ./runDE.sh 
-#./runEN.sh 
+./runEN.sh 
 ./runES.sh 
 ./runFR.sh 
 ./runNL.sh 

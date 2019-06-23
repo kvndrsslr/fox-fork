@@ -1,4 +1,4 @@
-FROM maven:3.3.9-jdk-8
+FROM maven:3.6.1-jdk-8
 
 MAINTAINER R. Speck <speck@informatik.uni-leipzig.de>
 
@@ -6,6 +6,7 @@ MAINTAINER R. Speck <speck@informatik.uni-leipzig.de>
 RUN apt-get update && apt-get -y install \
     wget \
     unzip \
+    tar \
     git \
     graphviz \
     && rm -rf /var/lib/apt/lists/*
@@ -28,21 +29,27 @@ RUN cp ./fox.properties-dist ./fox.properties
 
 COPY org.aksw.fox.tools.ToolsGenerator.xml ./data/fox/cfg/
 
-COPY run.sh ./
-RUN chmod +x ./run.sh
-
 COPY downloadAgdistis.sh   ./
-RUN chmod +x ./downloadAgdistis.sh
+COPY downloadSpotlight.sh   ./
+COPY build ./
+COPY downloads ./
+RUN rm ScriptBuild.sh ScriptRun.sh
+COPY ScriptRun.sh ./
+COPY ScriptRunSpotlight.sh ./
+RUN chmod +x ./downloads
+RUN chmod +x ./build
+RUN chmod +x ./ScriptRun.sh
+RUN chmod +x ./ScriptRunSpotlight.sh
+
+RUN ./downloads
+RUN rm ./build ./ScriptRun.sh
+COPY build ./
+COPY ScriptRun.sh ./
+RUN ./build2
 
 # FOX port
 EXPOSE 4444
 
-# build app
-RUN mvn clean compile -Dmaven.test.skip=true javadoc:javadoc
-
 # run app
-RUN ./downloadAgdistis.sh
-
-# run app
-CMD ["./run.sh"] 
+CMD ["./ScriptRun.sh"] 
 

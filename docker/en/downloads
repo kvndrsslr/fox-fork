@@ -1,0 +1,41 @@
+#!/bin/bash
+# Check for dependencies
+echo "##############################################################################" 
+echo "Checking dependencies..."
+
+#########################################################################################
+    git clone https://github.com/renespeck/knowledgeextraction.git xyz    
+    cd xyz
+    mvn compile install
+    cd ..
+    rm -rf xyz
+
+#########################################################################################
+    git clone https://github.com/dice-group/Ocelot.git xyz    
+    cd xyz
+    #git checkout dev
+    mvn -Dmaven.test.skip=true compile install
+    cd ..
+    rm -rf xyz
+
+#########################################################################################
+pkg="graphviz"
+if dpkg --get-selections | grep -q "^$pkg[[:space:]]*install$" >/dev/null; then
+     echo "# $pkg is already installed."
+else
+        apt-get update && sudo apt-get install $pkg
+fi
+
+#########################################################################################
+# Download agdistis
+DIRECTORY="./agdistis"
+if [ ! -d "$DIRECTORY" ]; then
+        . ./scripts/downloadAgdistis.sh 
+fi
+
+#########################################################################################
+# Download spotlight
+DIRECTORY="./spotlight"
+if [ ! -d "$DIRECTORY" ]; then
+        . ./scripts/downloadSpotlight.sh 
+fi 

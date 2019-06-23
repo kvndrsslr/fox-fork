@@ -1,1 +1,2 @@
-docker build -t fox .
+#!/usr/bin/env bash
+docker build -t fox-en .
