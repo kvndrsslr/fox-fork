@@ -2,18 +2,18 @@
 <config>
     <server>
         <poolSize 
-            de="1" 
-            en="1" 
-            es="1" 
-            fr="1" 
-            it="1" 
-            nl="1"
+            de="0" 
+            en="10" 
+            es="0" 
+            fr="0" 
+            it="0" 
+            nl="0"
             >
         </poolSize>
         <listenerName>FoxNetworkListener</listenerName>
         <port>4444</port>
         <host>0.0.0.0</host>
-        <demo>true</demo>
+        <demo>false</demo>
         <api>true</api>
         <feedback>false</feedback>
         <staticFileCache>false</staticFileCache>
